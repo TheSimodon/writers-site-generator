@@ -22,8 +22,7 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
             else:
                 split_nodes.append(TextNode(sections[i], text_type))
         new_nodes.extend(split_nodes)
-        return new_nodes
-    return None
+    return new_nodes
 
 def extract_markdown_images(text):
     # !\[([^\[\]]*)\]\(([^\(\)]*)\)
@@ -90,4 +89,11 @@ def split_nodes_link(old_nodes):
     return new_nodes
 
 def text_to_textnodes(text):
-    pass
+    nodes = [TextNode(text, TextType.TEXT)]
+    nodes = split_nodes_delimiter(nodes, "**", TextType.BOLD)
+    nodes = split_nodes_delimiter(nodes, "_", TextType.ITALIC)
+    nodes = split_nodes_delimiter(nodes, "`", TextType.CODE)
+    nodes = split_nodes_image(nodes)
+    nodes = split_nodes_link(nodes)
+    return nodes
+
