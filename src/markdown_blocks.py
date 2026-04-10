@@ -1,5 +1,10 @@
 from enum import Enum
 
+from textnode import TextNode, TextType, text_node_to_html_node
+from inline_markdown import text_to_textnodes
+from parentnode import ParentNode
+
+
 class BlockType(Enum):
     PARAGRAPH = "paragraph"
     HEADING = "heading"
@@ -49,3 +54,40 @@ def block_to_block_type(markdown_block):
         return BlockType.ORDERED_LIST
     # DEFAULT
     return BlockType.PARAGRAPH
+
+def text_to_children(text):
+    text_nodes = text_to_textnodes(text)  # you already have this!
+    children = []
+    for text_node in text_nodes:
+        children.append(text_node_to_html_node(text_node))  # and this!
+    return children
+
+def markdown_to_html_node(markdown):
+    blocks = markdown_to_blocks(markdown)
+    children = []
+    for block in blocks:
+        block_type = block_to_block_type(block)
+        match block_type:
+            case BlockType.HEADING:
+                level = len(block) - len(block.lstrip("#"))
+                text = block.lstrip("# ")
+                node = ParentNode(f"h{level}", text_to_children(text))
+            case BlockType.PARAGRAPH:
+                node = ParentNode("p", text_to_children(block))
+            case BlockType.QUOTE:
+                text = "\n".join(line.lstrip("> ") for line in block.split("\n"))
+                node = ParentNode("blockquote", text_to_children(text))
+            case BlockType.UNORDERED_LIST:
+                items = [ParentNode("li", text_to_children(line.lstrip("- "))) for line in block.split("\n")]
+                node = ParentNode("ul", items)
+            case BlockType.ORDERED_LIST:
+                items = [ParentNode("li", text_to_children(line.split(". ", 1)[1])) for line in block.split("\n")]
+                node = ParentNode("ol", items)
+            case BlockType.CODE:
+                # special case: no inline markdown parsing!
+                text = block.strip("`").strip()
+                text_node = TextNode(text, TextType.CODE)
+                node = ParentNode("pre", [text_node_to_html_node(text_node)])
+        children.append(node)
+    return ParentNode("div", children)
+    return None
