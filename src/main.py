@@ -12,7 +12,7 @@ template_path = "src/template.html"
 
 def main() -> None:
     basepath = sys.argv[1] if len(sys.argv) > 1 else "/"
-
+    # Mip
     print("Deleting public directory...")
     if os.path.exists(dir_path_public):
         shutil.rmtree(dir_path_public)
