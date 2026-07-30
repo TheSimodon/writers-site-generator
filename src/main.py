@@ -2,13 +2,13 @@ import os.path
 import shutil
 import sys
 
-from generate_page import generate_page, generate_pages_recursive
+from generate_page import generate_pages_recursive
 from copystatic import copy_files_recursive
 
 dir_path_static = "./static"
 dir_path_public = "./docs"
 dir_path_content = "./content"
-template_path = "./template.html"
+template_path = "src/template.html"
 
 def main() -> None:
     basepath = sys.argv[1] if len(sys.argv) > 1 else "/"
