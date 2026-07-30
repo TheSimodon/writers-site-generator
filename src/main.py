@@ -7,7 +7,7 @@ from copystatic import copy_files_recursive
 
 dir_path_static = "./static"
 dir_path_public = "./docs"
-dir_path_content = "./content"
+dir_path_content = "./future_content"
 template_path = "src/template.html"
 
 def main() -> None:
