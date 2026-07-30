@@ -4,7 +4,7 @@
 
 Here's the deal, **I love writing and acting**!
 
-> "I am in fact a Hobbit in all but size."
+> "Here a good quote would be neat"
 >
 > -- Marc R. Östreich
 

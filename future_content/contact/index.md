@@ -4,7 +4,7 @@
 
 I would love to hear from you!
 
-Write me an e-mail: [E-Mail](mailto:simodon20@yahoo.de)
+Write me an e-mail: [E-Mail](mailto:fake@nope.de)
 
 DM me on instagram: [Instagram](https://instagram.com/marcenprodukt/)
 
